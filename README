@@ -1,39 +1,86 @@
-MyNotifications
+#MyNotifications
 
-__TOC__
+Plug in Jquery de notification visuel d'événements.
 
-Simple Notification Plugin. Compatible Firefox, Opera, Chrome and maybe IE9
+##Table des matières
 
-Ajoute un container au DOM courant pour y placer une liste ordonnée. Cette
-liste contiendra des messages destinés au client. Cela peut être le résultat
-d'une requête ajax, de traitements PHP ou javascript. Vous pouvez également
-activé le debug pour avoir les traitements effectués dans la console de debug
-de firebug ( ou équivalents supportant console.log() ).
+* Nécessaire
+* Objectifs
+* Principes
+    * Container
+    * liste
+        * item
+    * Constructeur
+* Plugin
+    * Principe
+    * Attributs
+    * Méthodes privées
+    * Méthodes public
+        * Alias
+    * Instanciation
+* Installation
+* Dépôt gihub
+
+## Nécessaire
+
+* Jquery 1.6.4+
+* JqueryUI 1.8+
+* Le plug in (plugin.mynotifications.js)
+* Eventuellement une feuille de style
+* Navigateur moderne
+
+Pour inclure Jquery et JqueryUi le plus simple est d'utiliser Google Librairies et d'inclure ces lignes dans votre header
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
 
-Une liste de notification est par défaut très simple, dont voici la strucure
-HTML:
+## Objectifs
 
-	<div id="container>
-		<ul>
-			<li>
-				<h6>Titre</h6>
-				<p>
-					texte
-				</p>
-			</li>
-			// etc
-		</ul>
-	</div>
+Plug in simple d'utilisation, configurable, non dépendant d'un balisage particulier, compatibilité.
 
-L'apparence de vos notifications devrait être déclaré dans une feuille de
-style CSS séparée.
+Il sert à afficher dans le navigateur des messages pour l'utilisateur. Nous avons le même fonctionnement avec nos différents OS.
+Par exemple sous windows les petites info-bulles jaunes.
 
-Les notifications sont configurables via le constructeur de l'objet.
+## Principe
 
-Installation
+Le plugin recherche un *container* dans le DOM de la page courante. Si il n'est pas présent il est ajouté. Les messages seront contenus 
+dans une *liste non ordonnée* ajoutée automatiquement. Chaque *item* de cette liste sera une notification pour l'utilisateur, de durée d'affichage,
+d'apparence configurable. Les items peuvent être supprimés lors d'un clic sur ceux ci, automatiquement ou au clic sur un bouton de fermeture.
 
-1 - Nécessite Jquery (testé avec Jquery 1.6.4) & Jquery UI
-2 - Inclure le plugin situé dans plugin.mynotifications.js
-3 - Inclure une feuille de style
-4 - Construire l'object
+### Container
+
+Le container est une simple div avec un id html unique. Il sera le dernier noeud de body
+
+    <div id="container"></div>
+
+### Liste
+
+Est dans le container, toutes les notifications seront ajoutées dans ce noeud.
+
+    <ul></ul>
+
+#### Item
+
+Est un item de liste avec un id unique et une classe CSS.
+
+    <li id="message-0" style="display: block;" class="my-notifications-error">
+        <h6>Error<a class="my-notifications-close" href="#" onclick="return false;">x</a></h6>
+        <p>Message d'erreur.</p>
+    </li>
+
+### Constructeur
+
+## Plugin
+
+### Attributs
+
+### Méthodes privées
+
+### Méthodes publics
+
+#### Alias
+
+## Installation
+
+## Dépôt Gihub
