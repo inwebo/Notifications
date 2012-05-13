@@ -28,3 +28,10 @@ L'apparence de vos notifications devrait être déclaré dans une feuille de
 style CSS séparée.
 
 Les notifications sont configurable via le constructeur de l'objet.
+
+Installation
+
+1 - Nécessite Jquery (testé avec Jquery 1.6.4)
+2 - Inclure le plugin situé dans plugin.mynotifications.js
+3 - Inclure une feuille de style
+4 - Construire l'object
