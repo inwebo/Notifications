@@ -1,0 +1,30 @@
+MyNotifications
+
+Simple Notification Plugin.
+
+Ajoute un container au DOM courant pour y placer une liste ordonnée. Cette
+liste contiendra des messages destinés au client. Cela peut être le résultat
+d'une requête ajax, de traitements PHP ou javascript. Vous pouvez également
+activé le debug pour avoir les traitements effectués dans la console de debug
+de firebug (ou équivalents supportant console.log() ).
+
+
+Une liste de notification est par défaut très simple, dont voici la strucure
+HTML:
+
+	<div id="container>
+		<ul>
+			<li>
+				<h6>Titre</h6>
+				<p>
+					texte
+				</p>
+			</li>
+			// etc
+		</ul>
+	</div>
+
+L'apparence de vos notifications devrait être déclaré dans une feuille de
+style CSS séparée.
+
+Les notifications sont configurable via le constructeur de l'objet.
