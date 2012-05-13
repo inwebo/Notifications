@@ -138,7 +138,7 @@
 		        	break;
 		    }
 		    
-		    // #1 : Doit on ajouter un bouton fermer la notification ?
+		    // #1 : Ecouteur des notifications qui se ferme au click.
 			if( plugin.settings.itemCloseByClick == 'true') {
 				listenerClose( item );
 			}
@@ -150,14 +150,16 @@
 			item.append( $( '<p></p>' ).html( text ) );
 			$( plugin.settings.listSelector ).append(item);
 			
-		    // #2 : La notification doit elle se fermer automatiquement ?
+		    // #1 : Doit on ajouter un bouton fermer la notification ?
 			if( plugin.settings.itemCloseButton == 'true' ) {
-				var closeButton = $( '<a></a>' ).attr( 'class', plugin.settings.classItemClose ).attr('href', '#').html('x');
+				var closeButton = $( '<a></a>' ).attr( 'class', plugin.settings.classItemClose ).attr('href', '#').attr('onClick', 'return false;').html('x');
 				closeButton.click(function(){
 					$(this).parent().parent().remove();
 				});
 				headingObject.append(closeButton);
 			}
+			
+
 			
 		    // #3 : La notification doit elle etre affichée indefiniment ?
 			if(plugin.settings.delay > 0) {
