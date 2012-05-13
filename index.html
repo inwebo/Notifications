@@ -1,0 +1,122 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="my-style.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
+
+</head>
+
+<body>
+<h1>My Notifications</h1>
+<a href="#" id="addMsgError">Error</a> - <a href="#" id="addMsgInfo">Info</a> - <a href="#" id="addMsgWarning">Warning</a> - <a href="#" id="addMsgOkay">Okay</a> - <a href="#" id="addMsg">Message</a>
+
+<script type="text/javascript" src="plugin.mynotifications.js"></script>
+<h2>Usage</h2>
+<code>
+<pre>
+$(document).ready(function() {
+
+    // create a new instance of the plugin
+    var myplugin = new $.myNotifications({'delay':-1});
+
+	$('#addMsgError').click(
+		
+		function() {
+				myplugin.msgError('Message d\'erreur.');
+		}
+		
+	);
+	
+	$('#addMsgWarning').click(
+		
+		function() {
+				myplugin.msgWarning('Message warning!');
+		}
+		
+	);
+	
+	$('#addMsgInfo').click(
+		
+		function() {
+				myplugin.msgInfo('Message à caractère informatif!');
+		}
+		
+	);
+	
+	$('#addMsgOkay').click(
+		
+		function() {
+				myplugin.msgOkay('Tout est okay!');
+		}
+	);
+	
+	$('#addMsg').click(
+		
+		function() {
+				myplugin.msg('Titre custom','Text custom');
+		}
+	);
+	
+});	
+</pre>
+</code>
+<script>
+
+$(document).ready(function() {
+
+    // create a new instance of the plugin
+    var myplugin = new $.myNotifications({'delay':-1, 'itemCloseByClick':false});
+
+	$('#addMsgError').click(
+		
+		function() {
+			myplugin.msgError('Message d\'erreur.');
+		}
+		
+	);
+	
+	$('#addMsgWarning').click(
+		
+		function() {
+			myplugin.msgWarning('Message warning!');
+		}
+		
+	);
+	
+	$('#addMsgInfo').click(
+		
+		function() {
+			myplugin.msgInfo('Message à caractère informatif!');
+		}
+		
+	);
+	
+	$('#addMsgOkay').click(
+		
+		function() {
+			myplugin.msgOkay('Tout est okay!');
+		}
+	);
+	
+	$('#addMsg').click(
+		
+		function() {
+			myplugin.msg('Titre custom','Text custom');
+		}
+	);
+	
+});
+</script>
+</body>
+</html>
