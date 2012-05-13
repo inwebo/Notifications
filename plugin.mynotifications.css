@@ -1,3 +1,5 @@
+@charset "utf-8";
+/* Styling module */
 #container {
     bottom: 10px;
     position: fixed;
@@ -10,17 +12,16 @@
 	}
 	
 	#container li {
-	    border: 1px solid grey;
-	    list-style: none outside none;
-	    padding: 10px;
-	    margin-bottom:5px;
+		border: 1px solid grey;
+		list-style: none outside none;
+		padding: 10px;
+		margin-bottom:5px;
 		background-color:#FFECCE;
  		box-shadow: 0 0 0 1px #FFFFFF inset;
 
 	}
 		
-		#container li:hover
-		 {
+		#container li:hover {
 		 	opacity:0.6;
 		 	text-shadow: 0 0 2px #333;
 		 	color:transparent;
@@ -34,7 +35,7 @@
 		margin-bottom:0;
 	}
 	
-		#container h6 a {
+		#container h6 .my-notifications-close {
 			float:right;
 			text-decoration:none;
 			text-transform: small-caps;
@@ -44,40 +45,40 @@
 		font-size: small;
 	}
 	
-	#container .tool-tips-error {
+	#container .my-notifications-error {
 		background-color:#FFECCE;
 		border: 1px solid #E9C59B
 	}
 	
-			#container .tool-tips-error, #container .tool-tips-error h6 a {
+			#container .my-notifications-error, #container .my-notifications-error h6 .my-notifications-close {
 				color: #E3302C;
 			}
 	
-	#container .tool-tips-okay {
+	#container .my-notifications-okay {
 	    border: 1px solid #BFDE84;
 		background-color:#EDFBD8;
 	}
 	
-			#container .tool-tips-okay,  #container .tool-tips-okay h6 a {
+			#container .my-notifications-okay,  #container .my-notifications-okay h6 .my-notifications-close {
 				color: #508600;
 			}
 		
 	
-	#container .tool-tips-info {
+	#container .my-notifications-info {
 		border-color:#BBDBE0;
 		background-color:#ECF9FF;
 	}
 	
-		#container .tool-tips-info, #container .tool-tips-info a {
+		#container .my-notifications-info, #container .my-notifications-info .my-notifications-close {
 			color: #0888C3;
 		}
 	
-	#container .tool-tips-warning {
+	#container .my-notifications-warning {
 		border: 1px solid #E5E181;
 		background-color:#FEFDE2;
 	}
 	
-		#container .tool-tips-warning, 	#container .tool-tips-warning a{
+		#container .my-notifications-warning, 	#container .my-notifications-warning .my-notifications-close {
 			color: #666666;
 		}
 	

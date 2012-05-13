@@ -11,25 +11,25 @@
             containerSelector: '#',
             // Durée d'affichage des notifications, si négatif perpetuel
             delay: 3000,
-            // Id HTML des enfants
+            // Id HTML des enfants ne doit pas etre surcharger
             childsId: -1,
             // Préfixe CSS des id enfants
             childsPrefixId: 'message',
             // Type de notification par défaut
             defaultItemType: 'info',
             // Class CSS des notifications d erreurs
-            classItemError:'tool-tips-error',
+            classItemError:'my-notifications-error',
 			// Class CSS des notifications avertissement
-            classItemWarning:'tool-tips-warning',
+            classItemWarning:'my-notifications-warning',
 			// Class CSS des notifications d information
-			classItemInfo:'tool-tips-info',
+			classItemInfo:'my-notifications-info',
 			// Class CSS des notifications validation
-			classItemOkay:'tool-tips-okay',
+			classItemOkay:'my-notifications-okay',
 			// Class CSS du bouton fermeture de notification
-			classItemClose:'tool-tips-close',
+			classItemClose:'my-notifications-close',
 			// Les notifications se ferment lors d un click
 			itemCloseByClick: 'true',
-			// Les notification ont elles un bouton de fermeture ?
+			// Les notifications ont elles un bouton de fermeture ?
 			itemCloseButton: 'true'
         }
 

@@ -1,12 +1,12 @@
 MyNotifications
 
-Simple Notification Plugin.
+Simple Notification Plugin. Compatible Firefox, Opera, Chrome and maybe IE9
 
 Ajoute un container au DOM courant pour y placer une liste ordonnée. Cette
 liste contiendra des messages destinés au client. Cela peut être le résultat
 d'une requête ajax, de traitements PHP ou javascript. Vous pouvez également
 activé le debug pour avoir les traitements effectués dans la console de debug
-de firebug (ou équivalents supportant console.log() ).
+de firebug ( ou équivalents supportant console.log() ).
 
 
 Une liste de notification est par défaut très simple, dont voici la strucure
@@ -27,11 +27,11 @@ HTML:
 L'apparence de vos notifications devrait être déclaré dans une feuille de
 style CSS séparée.
 
-Les notifications sont configurable via le constructeur de l'objet.
+Les notifications sont configurables via le constructeur de l'objet.
 
 Installation
 
-1 - Nécessite Jquery (testé avec Jquery 1.6.4)
+1 - Nécessite Jquery (testé avec Jquery 1.6.4) & Jquery UI
 2 - Inclure le plugin situé dans plugin.mynotifications.js
 3 - Inclure une feuille de style
 4 - Construire l'object
