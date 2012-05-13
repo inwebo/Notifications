@@ -1,0 +1,83 @@
+#container {
+    bottom: 10px;
+    position: fixed;
+    right: 10px;
+    width: 350px;
+}
+
+	#container ul {
+		padding:0;
+	}
+	
+	#container li {
+	    border: 1px solid grey;
+	    list-style: none outside none;
+	    padding: 10px;
+	    margin-bottom:5px;
+		background-color:#FFECCE;
+ 		box-shadow: 0 0 0 1px #FFFFFF inset;
+
+	}
+		
+		#container li:hover
+		 {
+		 	opacity:0.6;
+		 	text-shadow: 0 0 2px #333;
+		 	color:transparent;
+		 }
+	
+	#container h6 {
+		margin-top:0;
+		font-size: medium;
+		border-bottom:solid 1px;
+		padding-bottom: 0.8em;
+		margin-bottom:0;
+	}
+	
+		#container h6 a {
+			float:right;
+			text-decoration:none;
+			text-transform: small-caps;
+		}
+	
+	#container p {
+		font-size: small;
+	}
+	
+	#container .tool-tips-error {
+		background-color:#FFECCE;
+		border: 1px solid #E9C59B
+	}
+	
+			#container .tool-tips-error, #container .tool-tips-error h6 a {
+				color: #E3302C;
+			}
+	
+	#container .tool-tips-okay {
+	    border: 1px solid #BFDE84;
+		background-color:#EDFBD8;
+	}
+	
+			#container .tool-tips-okay,  #container .tool-tips-okay h6 a {
+				color: #508600;
+			}
+		
+	
+	#container .tool-tips-info {
+		border-color:#BBDBE0;
+		background-color:#ECF9FF;
+	}
+	
+		#container .tool-tips-info, #container .tool-tips-info a {
+			color: #0888C3;
+		}
+	
+	#container .tool-tips-warning {
+		border: 1px solid #E5E181;
+		background-color:#FEFDE2;
+	}
+	
+		#container .tool-tips-warning, 	#container .tool-tips-warning a{
+			color: #666666;
+		}
+	
