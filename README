@@ -1,5 +1,7 @@
 MyNotifications
 
+__TOC__
+
 Simple Notification Plugin. Compatible Firefox, Opera, Chrome and maybe IE9
 
 Ajoute un container au DOM courant pour y placer une liste ordonnée. Cette
