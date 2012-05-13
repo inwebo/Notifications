@@ -144,6 +144,7 @@ ol {
      text-align: center;
      text-shadow: 0px -1px 1px #1E2D4D;
      width: 150px;
+text-decoration:none;
 }
 
 .punch:hover {
