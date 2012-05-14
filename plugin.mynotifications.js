@@ -83,7 +83,7 @@
 			$( 'body' ).append( container );
 			var list = $( '<ul></ul>' );
 			$( plugin.settings.containerSelector ).append( list );
-			( plugin.settings.debug == 'true' ) ? console.info( 'Container build' + "\n" + 'id: ' + plugin.settings.containerId) : null ;
+			( plugin.settings.debug == 'true' ) ? console.info( 'Container built' + "\n" + 'id: ' + plugin.settings.containerId) : null ;
 		}
 
 		var listenerClose = function(item) {

@@ -12,11 +12,11 @@
 	}
 	
 	#container li {
-		border: 1px solid grey;
+		border: 1px solid lightgrey;
 		list-style: none outside none;
 		padding: 10px;
 		margin-bottom:5px;
-		background-color:#FFECCE;
+		background-color:white;
  		box-shadow: 0 0 0 1px #FFFFFF inset;
 
 	}
