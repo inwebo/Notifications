@@ -1,193 +1,134 @@
-# MyNotifications
-
 Plug in Jquery de notification visuel d'événements.
+Nécessaire
 
-## Table des matières
+    Jquery 1.6.4+
+    JqueryUI 1.8+
+    Le plug in (plugin.mynotifications.js)
+    Eventuellement une feuille de style
+    Navigateur moderne
 
-* Nécessaire
-* Objectifs
-* Principes
-    * Container
-    * liste
-        * item
-    * Constructeur
-* Plugin
-    * Principe
-    * Attributs
-    * Méthodes privées
-    * Méthodes public
-        * Alias
-    * Instanciation
-* Installation
-* Dépôt gihub
+Pour inclure Jquery et JqueryUi le plus simple est d'utiliser Google Librairies et de copier/coller ces lignes dans votre header
 
-## Nécessaire
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
-* Jquery 1.6.4+
-* JqueryUI 1.8+
-* Le plug in (plugin.mynotifications.js)
-* Eventuellement une feuille de style
-* Navigateur moderne
+Objectifs
 
-Pour inclure Jquery et JqueryUi le plus simple est d'utiliser Google Librairies et d'inclure ces lignes dans votre header
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-
-
-## Objectifs
+    Simple d'utilisation
+    Indépendant d'un balisage particulier
+    Compatible navigateurs modernes
 
 Plug in simple d'utilisation, configurable, non dépendant d'un balisage particulier, compatibilité.
 
-Il sert à afficher dans le navigateur des messages pour l'utilisateur. Nous avons le même fonctionnement avec nos différents OS.
-Par exemple sous windows les petites info-bulles jaunes.
+Il sert à afficher dans le navigateur des messages pour l'utilisateur. Nous avons le même fonctionnement avec nos différents OS. Ainsi que sur un réseau social très connu.
+Principe
 
-## Principe
-
-Le plugin recherche un *container* dans le DOM de la page courante. Si il n'est pas présent il est ajouté. Les messages seront contenus 
-dans une *liste non ordonnée* ajoutée automatiquement. Chaque *item* de cette liste sera une notification pour l'utilisateur, de durée d'affichage,
-d'apparence configurable. Les items peuvent être supprimés lors d'un clic sur ceux ci, automatiquement ou au clic sur un bouton de fermeture.
-
-### Container
+Le plugin recherche un container dans le DOM de la page courante. Si il n'est pas présent il est ajouté. Les messages seront contenus dans une liste non ordonnée ajoutée automatiquement. Chaque item de cette liste sera une notification pour l'utilisateur, de durée d'affichage, d'apparence configurable. Les items peuvent être supprimés lors d'un clic sur ceux ci, automatiquement ou au clic sur un bouton de fermeture.
+Container
 
 Le container est une simple div avec un id html unique. Il sera le dernier noeud de body
 
-    <div id="container"></div>
+<div id="container"></div>
 
-### Liste
+Liste
 
 Est dans le container, toutes les notifications seront ajoutées dans ce noeud.
 
-    <ul></ul>
+<ul></ul>
 
-#### Item
+Item
 
 Est un item de liste avec un id unique et une classe CSS.
 
-    <li id="message-0" style="display: block;" class="my-notifications-error">
-        <h6>Error<a class="my-notifications-close" href="#" onclick="return false;">x</a></h6>
-        <p>Message d'erreur.</p>
-    </li>
+<li id="message-0" style="display: block;" class="my-notifications-error">
+    <h6>Error<a class="my-notifications-close" href="#" onclick="return false;">x</a></h6>
+    <p>Message d'erreur.</p>
+</li>
 
-### Constructeur
+Constructeur
 
 L'objet MyNotifications peut s'instancier de deux manières.
 
 L'instanciation par défauts
 
-    // Constructeur par défauts
-    var myplugin = new $.myNotifications();
+// Constructeur par défauts
+var myplugin = new $.myNotifications();
 
-Lors de l'instanciation de l'objet le *debug* est activé, le container principal se nomme *container*,
-le selecteur CSS est un *#*, son id CSS complet est donc *#container*, les notifications s'affichent pour une
-durée de *3000* ms. 
-
-Si le type de notifications n'est pas renseigné, les notifications seront de type *info*, le prefix des
-id CSS est *message*. les notifications se ferment lors d'un click elles et elles possédent également
-un bouton de fermeture.
+Lors de l'instanciation de l'objet le debug est activé, le container principal se nomme container, le selecteur CSS est un #, son id CSS complet est donc #container, les notifications s'affichent pour une durée de 3000 ms. Le prefix des id CSS est message. les notifications se ferment lors d'un click elles et elles possédent également un bouton de fermeture.
 
 Les class CSS par défaut des notifications est :
 
-* Pour les erreurs : *my-notifications-error*, la forme compléte est *.my-notifications-error*
-* Pour les avertissements : *my-notifications-warning*, la forme compléte est *.my-notifications-warning*
-* Pour les informations : *my-notifications-info*, la forme compléte est *.my-notifications-info*
-* Pour les validations : *my-notifications-okay*, la forme compléte est *.my-notifications-okay*
-* Du bouton de fermeture des notifications : *my-notifications-close*, la forme compléte est *.my-notifications-close*
+    Pour les erreurs : my-notifications-error, la forme compléte est .my-notifications-error
+    Pour les avertissements : my-notifications-warning, la forme compléte est .my-notifications-warning
+    Pour les informations : my-notifications-info, la forme compléte est .my-notifications-info
+    Pour les validations : my-notifications-okay, la forme compléte est .my-notifications-okay
+    Du bouton de fermeture des notifications : my-notifications-close, la forme compléte est .my-notifications-close
 
 L'instanciation avec paramètres
 
-    // Constructeur avec paramètres (tableau)
-    var myplugin = new $.myNotifications({
-    										'delay':-1,
-    										'containerId': 'notifications'
-    									 });
-    									 
-Même chose que précedemment mais les notifications s'affichent perpetuellement, et le *container* principal se
-nomme désormais *notifications*
+// Constructeur avec paramètres (tableau)
+var myplugin = new $.myNotifications({
+                                        'delay':-1,
+                                        'containerId': 'notifications'
+                                     });
 
-## Plugin
+Même chose que précedemment mais les notifications s'affichent perpetuellement, et le container principal se nomme désormais notifications
+Plugin
+Attributs
+Arguments 	Values 	Description
+debug 	True 	Affiche le déroulement du process dans la console de debug.
+False 	Silencieux
+Container name 	string 	Nom du container principal
+containerSelectorType 	string 	Un selecteur CSS, #, .
+containerSelector 	string 	Selecteur CSS
+listName 	string 	Selecteur type
+listSelectorType 	string 	Un selecteur CSS, #, .
+itemDisplayDelay 	int 	Durée d'affichage des notifications en ms.Un entier négatif donne un affichage perpetuel
+itemDisplayDelay 	int 	Nombre ajouts de notifications total dans la liste
+itemName 	string 	Préfixe des notifications
+itemCount 	int 	Nombre de notifications présentes dans le DOM
+itemCloseByClick 	True 	Les notifications se ferment lors d'un click.
+False 	Les notifications ne se ferment pas lors d'un click.
+itemCloseByButton 	True 	Bouton de fermeture ajouté à chaques notifications.
+False 	Pas de bouton
+itemClassError 	string 	Class CSS des notifications d erreurs
+itemClassWarning 	string 	Class CSS des notifications avertissement
+itemClassInfo 	string 	Class CSS des notifications d information
+itemClassOkay 	string 	Class CSS des notifications validation
+itemClassClose 	string 	Class CSS du bouton fermeture de notification
+Méthodes privées
 
-### Attributs
-    // Affiche dans la console de firebug le déroulement du processus
-    // true | false
-    debug: 'true',
-    // Id HTML du container principal
-    // STRING
-    containerId: 'container',
-    // Selecteur CSS du container principale par defaut un id
-    // # | .
-    containerSelector: '#',
-    // Durée d'affichage des notifications en milliseconde, si négatif perpetuel
-    delay: 3000,
-    // Id HTML des enfants ne doit pas etre surcharger
-    childsId: -1,
-    // Préfixe CSS des id enfants
-    childsPrefixId: 'message',
-    // Type de notification par défaut
-    // info | warning | okay | error
-    defaultItemType: 'info',
-    // Class CSS des notifications d erreurs
-    // STRING
-    classItemError:'my-notifications-error',
-	// Class CSS des notifications avertissement
-    // STRING
-    classItemWarning:'my-notifications-warning',
-	// Class CSS des notifications d information
-    // STRING
-	classItemInfo:'my-notifications-info',
-	// Class CSS des notifications validation
-    // STRING
-	classItemOkay:'my-notifications-okay',
-	// Class CSS du bouton fermeture de notification
-    // STRING
-	classItemClose:'my-notifications-close',
-	// Les notifications se ferment lors d un click
-    // true | false
-	itemCloseByClick: 'true',
-	// Les notifications ont elles un bouton de fermeture ?
-    // true | false
-	itemCloseButton: 'true'
-	
-### Méthodes privées
+    init() : Construit les attributs manquants de l'objet, s'assure de la présence dans le DOM du container
+    buildContainerSelector() : Construit le selecteur CSS du container principal. eg : #container
+    buildChildsAttributs() : Mets à jour l'index des notifications. Elles conservent comme ceci un nom unique
+    containerIsSet() : Le container est il présent
+    buildContainer() : Si le container n'est pas présent, on l'ajoute au DOM
+    listenerClose() : Ecouteur d'évenement sur les notifications
 
-* init() : Construit les attributs manquants de l'objet, s'assure de la présence dans le DOM
-           du container
-* buildContainerSelector() : Construit le selecteur CSS du container principal.
-                             eg : #container                             
-* buildChildsAttributs() : Mets à jour l'index des notifications. Elles conservent comme ceci un nom
-                           unique
-* containerIsSet() : Le container est il présent
-* buildContainer() : Si le container n'est pas présent, on l'ajoute au DOM
-* listenerClose() : Ecouteur d'évenement sur les notifications
-
-### Méthodes publics
+Méthodes publics
 
 Le plugin posséde une méthode principale :
 
-* msg('title', 'text') : title est le type de notifications info | warning | error | okay
-                         Si title n'est pas un des 4 choix précédents, la notification sera de type
-                         custom, ayant pour titre de fenêtre title.
-                         
-                         text est le text à afficher.
+    msg('title', 'text') : title est le type de notifications info | warning | error | okay Si title n'est pas un des 4 choix précédents, la notification sera de type custom, ayant pour titre de fenêtre title et comme texte text.
 
-#### Alias
+Alias
 
-Les méthodes suivantes sont simplement des alias de *msg()* le paramétre de *title* est déjà assigné.
+Les méthodes suivantes sont simplement des alias de msg() le paramétre de title est déjà assigné.
 
-* msgError('text')
-* msgWarning('text')
-* msgOkay('text')
-* msgInfo('text')
+    msgError('text')
+    msgWarning('text')
+    msgOkay('text')
+    msgInfo('text')
 
-## Installation
+Installation
 
 Le plugin pour fonctionner nécessite :
 
-* Jquery 1.6.8+
-* Une feuille de style *non nécessaire*
-* Le plugin
+    Jquery 1.6.8+
+    Une feuille de style non nécessaire
+    Le plugin
 
-## Dépôt Gihub
+Dépôt Gihub
 
 Fork me i'm famous
 

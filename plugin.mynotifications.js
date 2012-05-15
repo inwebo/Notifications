@@ -1,177 +1,261 @@
 ;(function($) {
 
-    $.myNotifications = function(options) {
+    $.myNotifications = function( options ) {
+
+		// Arguments
+		
 
         var defaults = {
         	// Affiche dans la console de firebug le déroulement du processus
-            debug: 'true',
-            // Id HTML du container principal
-            containerId: 'container',
-            // Selecteur CSS du container principale par defaut un id
-            containerSelector: '#',
-            // Durée d'affichage des notifications, si négatif perpetuel
-            delay: 3000,
-            // Id HTML des enfants ne doit pas etre surcharger
-            childsId: -1,
-            // Préfixe CSS des id enfants
-            childsPrefixId: 'message',
-            // Type de notification par défaut
-            defaultItemType: 'info',
+            debug: true,
+            // Nom du container principal
+            containerName: 'container',
+            // Selecteur type 
+            containerSelectorType: '#',
+            // Selecteur CSS
+            containerSelector:'',
+            // Nom de la liste 
+            listName: 'notifications',
+            // Selecteur type 
+            listSelectorType: '#',
+            // Selecteur CSS
+            listSelector:'',
+            // Durée d'affichage des notifications en ms
+            // Un entier négatif donne un affichage perpetuel
+            itemDisplayDelay : 3000,
+            // Nombre ajouts de notifications total dans la liste
+            itemNumber: -1,
+            // Préfixe des notifications
+            itemName: 'notifications-',
+            // Selecteur type 
+            itemSelectorType: '#',
+            // Selecteur CSS
+            itemSelector:'',
+            // Nombre de notifications présentes dans le DOM
+            itemCount:0,
+            // Les notifications se ferment elles lors d'un clic ?
+            itemCloseByClick: true,
+            // Les notifications se ferment elles avec un boutton ?
+            itemCloseByButton: true,
             // Class CSS des notifications d erreurs
-            classItemError:'my-notifications-error',
+            itemClassError:'my-notifications-error',
 			// Class CSS des notifications avertissement
-            classItemWarning:'my-notifications-warning',
+            itemClassWarning:'my-notifications-warning',
 			// Class CSS des notifications d information
-			classItemInfo:'my-notifications-info',
+			itemClassInfo:'my-notifications-info',
 			// Class CSS des notifications validation
-			classItemOkay:'my-notifications-okay',
+			itemClassOkay:'my-notifications-okay',
 			// Class CSS du bouton fermeture de notification
-			classItemClose:'my-notifications-close',
-			// Les notifications se ferment lors d un click
-			itemCloseByClick: 'true',
-			// Les notifications ont elles un bouton de fermeture ?
-			itemCloseButton: 'true'
+			itemClassClose:'my-notifications-close'
+            
         }
 
         var plugin = this;
 
         plugin.settings = {}
 
+
+		/*
+		 * Constructeur de l'objet
+		 */
         var init = function() {
         	
         	// Construction des attributs 
-            plugin.settings = $.extend({}, defaults, options);
+            plugin.settings                   = $.extend({}, defaults, options);
+            plugin.settings.containerSelector = plugin.settings.containerSelectorType + plugin.settings.containerName;
+            plugin.settings.listSelector      = plugin.settings.listSelectorType + plugin.settings.listName;
+            plugin.settings.listItemSelector  = plugin.settings.listSelectorType + plugin.settings.listName + ' li';
             
-            // Permet d'obtenir le selecteur css du container principal sous la forme par défault :  #container
-            plugin.settings.containerSelector = plugin.settings.containerSelector + plugin.settings.containerId;
-
-            // #1 : On s'assure de la présence du container dans le DOM, si il n'est pas présent on l'ajoute
-            if( containerIsSet() == false) {
-            	buildContainer();
+            // #1 : On s'assure de la présence du container dans le DOM, si il n'est pas présent on l'ajoute            
+            ( !containerIsSet() ) ? buildContainer() : null;
+            
+            // #2 : Ajout eventuel d'un listener sur le click des items
+            if( plugin.settings.itemCloseByClick == true ) {
+	            $( plugin.settings.listItemSelector ).live( 'click', function(){
+	            	removeDom( $( this ) );
+	            });
             }
             
-            // Ajout éventuel au DOM du conainer principal
-            buildContainerSelector();
+            // #3 : Ajout eventuel d'un listener sur le click d'un bouton fermer
+            if( plugin.settings.itemCloseByButton == true ) {
+	            var buttonCloseSelector = '.' + plugin.settings.itemClassClose;
+	            
+	            $( buttonCloseSelector ).live('click', function(){
+	            	removeDom( $( this ).parent().parent() );
+	            });
+            }
         }
-
-		var buildContainerSelector = function() {
-			plugin.settings.listSelector = plugin.settings.containerSelector + ' ul';
-		}
-
-		var buildChildsAttributs = function() {
-			plugin.settings.childsId++;
-			plugin.settings.childsCssId    = plugin.settings.childsPrefixId + '-' + plugin.settings.childsId;
-			plugin.settings.childsSelector = '#' + plugin.settings.childsCssId;
-			( plugin.settings.debug == 'true' ) ? console.info( 'Childs attributs updated.' ) : null ;
-		}
-
+	
+	   /*
+	    *  Le container principal est il présent dans le DOM
+	    * 
+	    * @return true si il est déjà présent sinon false
+	    * 
+	    */
 		var containerIsSet = function() {
-
 			var containerId = $( plugin.settings.containerSelector );
 			if( containerId.length == 0 )   {
-				( plugin.settings.debug == 'true' ) ? console.info( 'Container doesn\'t exist' ) : null ;
+				( plugin.settings.debug == true ) ? console.info( 'Container ' + plugin.settings.containerSelector + ' doesn\'t exist' ) : null ;
 				return false;
 			}
 			else {
-				( plugin.settings.debug == 'true' ) ? console.info( 'Container found' ) : null ;
+				( plugin.settings.debug == true ) ? console.info( 'Container ' + plugin.settings.containerSelector + ' found' ) : null ;
 				return true;
 			}
 		}
-
+	
+	   /*
+	    * Le container principal n'est pas présent, on l'ajoute au DOM
+	    * Cela sera le dernier noeud enfant du noeud body
+	    * 
+	    * @return void
+	    * 
+	    */
 		var buildContainer = function() {
-			var container = $( '<div></div>' ).attr( 'id' , plugin.settings.containerId );
+			var container = $( '<div></div>' ).attr( 'id' , plugin.settings.containerName );
 			$( 'body' ).append( container );
-			var list = $( '<ul></ul>' );
+			var list = $( '<ul></ul>' ).attr( 'id', plugin.settings.listName );
 			$( plugin.settings.containerSelector ).append( list );
-			( plugin.settings.debug == 'true' ) ? console.info( 'Container built' + "\n" + 'id: ' + plugin.settings.containerId) : null ;
+			( plugin.settings.debug == true ) ? console.info( 'Container ' + plugin.settings.containerSelector + ' ready' ) : null ;
+			( plugin.settings.debug == true ) ? console.info( 'List ' + plugin.settings.listSelector + ' ready' ) : null ;
 		}
-
-		var listenerClose = function(item) {
-			$( item ).click(
-				function() {
-					$( this ).remove();
-				}
-			);
+	
+	   /*
+	    * Construction des attributs indispensable pour chaques notifications
+	    * 
+	    * @return void
+	    * 
+	    */
+		var buildItemAttributs = function() {
+			plugin.settings.itemNumber++;
+			plugin.settings.itemCount++;
+			plugin.settings.itemSelector = '#' + plugin.settings.itemName + plugin.settings.itemNumber;
+			( plugin.settings.debug == true ) ? console.info( 'Item current selector ' + plugin.settings.itemSelector ) : null ;
+			( plugin.settings.debug == true ) ? console.info( 'Item count ' + plugin.settings.itemCount ) : null ;
 		}
-
-		plugin.msgError = function( text ) {
-			plugin.msg( 'error' , text);
-		}
-			
-		plugin.msgWarning = function( text ) {
-			plugin.msg('warning' , text);
-		}
-		
-		plugin.msgInfo = function( text ) {
-			plugin.msg( 'info' , text);
-		}
-		
-		plugin.msgOkay = function( text ) {
-			plugin.msg( 'okay' , text);
-		}
-
+	
+	   /*
+	    * Affiche une notification ayant comme titre title et avec comme
+	    * text text
+	    * 
+	    * @param STRING title Un type prédéfini parmi okay | warning | error | info
+	    *               peut être défini par l'utilisateur, la notifications
+	    *               sera un message
+	    * 
+	    * @param STRING text  Le text à afficher
+	    * 
+	    * @return void
+	    * 
+	    */
 		plugin.msg = function ( title, text ) {
-			buildChildsAttributs();
+			buildItemAttributs();
+			
 			item = $( '<li></li>' );
-			(plugin.settings.debug == 'true') ? console.info('Item added to dom'+"\n"+'id : ' + plugin.settings.childsCssId + "\n" + 'type:' + title + "\n" + 'duration:'+ plugin.settings.delay + ' ms') : null ;
-			item.attr( 'id' , plugin.settings.childsCssId ).hide();
-			var itemHeading = '';
+			
+			( plugin.settings.debug == true ) ? console.info( 'Item added to dom'+"\n"+'id : ' + plugin.settings.itemSelector + "\n" + 'type:' + title + "\n" + 'duration:'+ plugin.settings.itemDisplayDelay + ' ms') : null ;
+			
+			var itemTempName = plugin.settings.itemName + plugin.settings.itemNumber;
+			var itemHeading  = '';
+			
+			item.attr( 'id' , itemTempName ).hide();
+			
 		    switch( title ) {
 		        case 'error' :
 					itemHeading = 'Error';
-					item.addClass( plugin.settings.classItemError );
+					item.addClass( plugin.settings.itemClassError );
 		            break;
 		        case 'warning' :
 					itemHeading = 'Warning';
-					item.addClass( plugin.settings.classItemWarning );
+					item.addClass( plugin.settings.itemClassWarning );
 		            break;
 		        case 'info' :
 					itemHeading = 'Information';
-					item.addClass( plugin.settings.classItemInfo );
+					item.addClass( plugin.settings.itemClassInfo );
 		            break;
 		        case 'okay' :
 					itemHeading = 'Okay';
-					item.addClass( plugin.settings.classItemOkay );
+					item.addClass( plugin.settings.itemClassOkay );
 		            break;
 		        default :
 		        	itemHeading = title;
 		        	break;
 		    }
 		    
-		    // #1 : Ecouteur des notifications qui se ferme au click.
-			if( plugin.settings.itemCloseByClick == 'true') {
-				listenerClose( item );
-			}
-
 			var headingObject = $( $( '<h6></h6>' ) );
 			item.append( headingObject.html( itemHeading ) );
 			
 			
 			item.append( $( '<p></p>' ).html( text ) );
-			$( plugin.settings.listSelector ).append(item);
+			$( plugin.settings.listSelector ).append( item );
 			
 		    // #1 : Doit on ajouter un bouton fermer la notification ?
-			if( plugin.settings.itemCloseButton == 'true' ) {
-				var closeButton = $( '<a></a>' ).attr( 'class', plugin.settings.classItemClose ).attr('href', '#').attr('onClick', 'return false;').html('x');
-				closeButton.click(function(){
-					$(this).parent().parent().remove();
-				});
-				headingObject.append(closeButton);
+			if( plugin.settings.itemCloseByButton == true ) {
+				var closeButton = $( '<a></a>' ).attr( 'class', plugin.settings.itemClassClose ).attr('href', '#').attr('onClick', 'return false;').html('x');
+				headingObject.append( closeButton );
 			}
 			
-
-			
-		    // #3 : La notification doit elle etre affichée indefiniment ?
-			if(plugin.settings.delay > 0) {
-				$( item ).fadeIn( 'fast', 'easeInOutCubic' ).delay( plugin.settings.delay ).fadeOut( 'fast',function(){
-					$( this ).remove();
-					( plugin.settings.debug == 'true') ? console.info( 'Item removed from dom' + "\n" + 'id : ' + plugin.settings.childsCssId + "\n" + 'type:' + title ) : null ;
+		    // #2 : La notification doit elle être affichée indefiniment ?
+			if(plugin.settings.itemDisplayDelay > 0) {
+				$( item ).fadeIn( 'fast', 'easeInOutCubic' ).delay( plugin.settings.itemDisplayDelay ).fadeOut( 'fast',function(){
+					removeDom( item );
+					( plugin.settings.debug == true) ? console.info( 'Item removed from dom' + "\n" + 'id : ' + plugin.settings.itemSelector + "\n" + 'type:' + title ) : null ;
 				});				
 			}
 			else {
 				$( item ).fadeIn( 'fast', 'easeInOutCubic' );
 			}
 
+		}
+	
+	   /*
+	    * Supprime item du DOM, et mets à jour le nombre total de notifications encore
+	    * présentes dans le DOM
+	    * 
+	    * @param STRING item le selecteur d'un item à supprimer du DOM
+	    * 
+	    * @return void
+	    * 
+	    */
+		var removeDom = function( item ) {
+			plugin.settings.itemCount--;
+			$( item ).remove();
+			( plugin.settings.debug == true) ? console.info( 'Still : ' + plugin.settings.itemCount + ' items into DOM.' ) : null ;
+		}
+	
+		var addListener = function( item ) {
+
+		}
+	
+		var removeListener = function( item ) {
+			
+		}
+	
+	   /*
+	    * Alias de msg('error', text)
+	    */
+		plugin.msgError = function( text ) {
+			plugin.msg( 'error' , text);
+		}
+	
+	   /*
+	    * Alias de msg('warning', text)
+	    */
+		plugin.msgWarning = function( text ) {
+			plugin.msg('warning' , text);
+		}
+
+	   /*
+	    * Alias de msg('info', text)
+	    */
+		plugin.msgInfo = function( text ) {
+			plugin.msg( 'info' , text);
+		}
+		
+	   /*
+	    * Alias de msg('okay', text)
+	    */
+		plugin.msgOkay = function( text ) {
+			plugin.msg( 'okay' , text);
 		}
 		
 		// Construteur
