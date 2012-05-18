@@ -62,6 +62,8 @@
         	
         	// Construction des attributs 
             plugin.settings                   = $.extend({}, defaults, options);
+            plugin.settings.name              = 'MyNotifications';
+            plugin.settings.version           = '05-2012';
             plugin.settings.containerSelector = plugin.settings.containerSelectorType + plugin.settings.containerName;
             plugin.settings.listSelector      = plugin.settings.listSelectorType + plugin.settings.listName;
             plugin.settings.listItemSelector  = plugin.settings.listSelectorType + plugin.settings.listName + ' li';
@@ -87,7 +89,7 @@
         }
 	
 	   /*
-	    *  Le container principal est il présent dans le DOM
+	    * Le container principal est il présent dans le DOM
 	    * 
 	    * @return true si il est déjà présent sinon false
 	    * 
@@ -221,15 +223,7 @@
 			$( item ).remove();
 			( plugin.settings.debug == true) ? console.info( 'Still : ' + plugin.settings.itemCount + ' items into DOM.' ) : null ;
 		}
-	
-		var addListener = function( item ) {
-
-		}
-	
-		var removeListener = function( item ) {
-			
-		}
-	
+		
 	   /*
 	    * Alias de msg('error', text)
 	    */
