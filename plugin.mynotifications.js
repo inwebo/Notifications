@@ -1,3 +1,42 @@
+/**
+ * My.Notifications
+ * 
+ * Plugin Jquery de notification visuel d'événements. Simple et configurable
+ *
+ * LICENCE
+ *
+ * Vous êtes libre de :
+ *
+ * Partager : reproduire, distribuer et communiquer l'oeuvre
+ * Remixer  : adapter l'oeuvre 
+ *
+ * Selon les conditions suivantes :
+ *
+ * Attribution : Vous devez attribuer l'oeuvre de la manière indiquée par 
+ * l'auteur de l'oeuvre ou le titulaire des droits (mais pas d'une manière
+ * qui suggérerait qu'ils vous soutiennent ou approuvent votre utilisation 
+ * de l'oeuvre). 
+ *
+ * Pas d’Utilisation Commerciale : Vous n'avez pas le droit d'utiliser cette
+ * oeuvre à des fins commerciales. 
+ *
+ * Partage à l'Identique : Si vous modifiez, transformez ou adaptez cette
+ * oeuvre, vous n'avez le droit de distribuer votre création que sous une
+ * licence identique ou similaire à celle-ci.
+ *
+ * Remarque : A chaque réutilisation ou distribution de cette oeuvre, vous 
+ * devez faire apparaître clairement au public la licence selon laquelle elle
+ * est mise à disposition. La meilleure manière de l'indiquer est un lien vers
+ * cette page web. 
+ *
+ * @category  Jquery
+ * @package   Plugin
+ * @copyright Copyright (c) 2005-2012 Inwebo (http://www.inwebo.net)
+ * @author    Julien Hannotin
+ * @license   http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+ * @version   05-2012
+ * @link      git://github.com/inwebo/MyNotifications-Jquery-plugin.git
+ */
 ;(function($) {
 
     $.myNotifications = function( options ) {
@@ -97,11 +136,11 @@
 		var containerIsSet = function() {
 			var containerId = $( plugin.settings.containerSelector );
 			if( containerId.length == 0 )   {
-				( plugin.settings.debug == true ) ? console.info( 'Container ' + plugin.settings.containerSelector + ' doesn\'t exist' ) : null ;
+				debug( 'Container ' + plugin.settings.containerSelector + ' doesn\'t exist' );
 				return false;
 			}
 			else {
-				( plugin.settings.debug == true ) ? console.info( 'Container ' + plugin.settings.containerSelector + ' found' ) : null ;
+				debug( 'Container ' + plugin.settings.containerSelector + ' found' );
 				return true;
 			}
 		}
@@ -118,8 +157,8 @@
 			$( 'body' ).append( container );
 			var list = $( '<ul></ul>' ).attr( 'id', plugin.settings.listName );
 			$( plugin.settings.containerSelector ).append( list );
-			( plugin.settings.debug == true ) ? console.info( 'Container ' + plugin.settings.containerSelector + ' ready' ) : null ;
-			( plugin.settings.debug == true ) ? console.info( 'List ' + plugin.settings.listSelector + ' ready' ) : null ;
+			debug( 'Container ' + plugin.settings.containerSelector + ' ready' );
+			debug( 'List ' + plugin.settings.listSelector + ' ready' );
 		}
 	
 	   /*
@@ -132,8 +171,8 @@
 			plugin.settings.itemNumber++;
 			plugin.settings.itemCount++;
 			plugin.settings.itemSelector = '#' + plugin.settings.itemName + plugin.settings.itemNumber;
-			( plugin.settings.debug == true ) ? console.info( 'Item current selector ' + plugin.settings.itemSelector ) : null ;
-			( plugin.settings.debug == true ) ? console.info( 'Item count ' + plugin.settings.itemCount ) : null ;
+			debug( 'Item current selector ' + plugin.settings.itemSelector );
+			debug( 'Item count ' + plugin.settings.itemCount );
 		}
 	
 	   /*
@@ -154,7 +193,10 @@
 			
 			item = $( '<li></li>' );
 			
-			( plugin.settings.debug == true ) ? console.info( 'Item added to dom'+"\n"+'id : ' + plugin.settings.itemSelector + "\n" + 'type:' + title + "\n" + 'duration:'+ plugin.settings.itemDisplayDelay + ' ms') : null ;
+			debug( 'Item added to dom' + "\n" + 'id : ' + 
+					plugin.settings.itemSelector + "\n" + 
+					'type:' + title + "\n" + 
+					'duration:' + plugin.settings.itemDisplayDelay + ' ms' );
 			
 			var itemTempName = plugin.settings.itemName + plugin.settings.itemNumber;
 			var itemHeading  = '';
@@ -198,13 +240,15 @@
 			
 		    // #2 : La notification doit elle être affichée indefiniment ?
 			if(plugin.settings.itemDisplayDelay > 0) {
-				$( item ).fadeIn( 'fast', 'easeInOutCubic' ).delay( plugin.settings.itemDisplayDelay ).fadeOut( 'fast',function(){
+				$( item ).fadeIn( 'fast' ).delay( plugin.settings.itemDisplayDelay ).fadeOut( 'fast',function(){
 					removeDom( item );
-					( plugin.settings.debug == true) ? console.info( 'Item removed from dom' + "\n" + 'id : ' + plugin.settings.itemSelector + "\n" + 'type:' + title ) : null ;
+					debug( 'Item removed from dom' + "\n" + 
+					       'id : ' + plugin.settings.itemSelector + "\n" + 
+					       'type:' + title );
 				});				
 			}
 			else {
-				$( item ).fadeIn( 'fast', 'easeInOutCubic' );
+				$( item ).fadeIn( 'fast' );
 			}
 
 		}
@@ -221,7 +265,7 @@
 		var removeDom = function( item ) {
 			plugin.settings.itemCount--;
 			$( item ).remove();
-			( plugin.settings.debug == true) ? console.info( 'Still : ' + plugin.settings.itemCount + ' items into DOM.' ) : null ;
+			debug( 'Still : ' + plugin.settings.itemCount + ' items into DOM.' );
 		}
 		
 	   /*
@@ -230,7 +274,7 @@
 		plugin.msgError = function( text ) {
 			plugin.msg( 'error' , text);
 		}
-	
+
 	   /*
 	    * Alias de msg('warning', text)
 	    */
@@ -244,14 +288,21 @@
 		plugin.msgInfo = function( text ) {
 			plugin.msg( 'info' , text);
 		}
-		
+	
 	   /*
 	    * Alias de msg('okay', text)
 	    */
 		plugin.msgOkay = function( text ) {
 			plugin.msg( 'okay' , text);
 		}
-		
+	
+		/*
+		 * Debug nécessite le support de console.info()
+		 */
+    	var debug = function( text ) {
+    		( plugin.settings.debug == true ) ? console.info( text ) : null ;
+    	}
+
 		// Construteur
         init();
 
