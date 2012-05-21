@@ -191,7 +191,7 @@
 		plugin.msg = function ( title, text ) {
 			buildItemAttributs();
 			
-			item = $( '<li></li>' );
+			notification = $( '<li></li>' );
 			
 			debug( 'Item added to dom' + "\n" + 'id : ' + 
 					plugin.settings.itemSelector + "\n" + 
@@ -201,24 +201,24 @@
 			var itemTempName = plugin.settings.itemName + plugin.settings.itemNumber;
 			var itemHeading  = '';
 			
-			item.attr( 'id' , itemTempName ).hide();
+			notification.attr( 'id' , itemTempName ).hide();
 			
 		    switch( title ) {
 		        case 'error' :
 					itemHeading = 'Error';
-					item.addClass( plugin.settings.itemClassError );
+					notification.addClass( plugin.settings.itemClassError );
 		            break;
 		        case 'warning' :
 					itemHeading = 'Warning';
-					item.addClass( plugin.settings.itemClassWarning );
+					notification.addClass( plugin.settings.itemClassWarning );
 		            break;
 		        case 'info' :
 					itemHeading = 'Information';
-					item.addClass( plugin.settings.itemClassInfo );
+					notification.addClass( plugin.settings.itemClassInfo );
 		            break;
 		        case 'okay' :
 					itemHeading = 'Okay';
-					item.addClass( plugin.settings.itemClassOkay );
+					notification.addClass( plugin.settings.itemClassOkay );
 		            break;
 		        default :
 		        	itemHeading = title;
@@ -226,11 +226,11 @@
 		    }
 		    
 			var headingObject = $( $( '<h6></h6>' ) );
-			item.append( headingObject.html( itemHeading ) );
+			notification.append( headingObject.html( itemHeading ) );
 			
 			
-			item.append( $( '<p></p>' ).html( text ) );
-			$( plugin.settings.listSelector ).append( item );
+			notification.append( $( '<p></p>' ).html( text ) );
+			$( plugin.settings.listSelector ).append( notification );
 			
 		    // #1 : Doit on ajouter un bouton fermer la notification ?
 			if( plugin.settings.itemCloseByButton == true ) {
@@ -240,15 +240,15 @@
 			
 		    // #2 : La notification doit elle être affichée indefiniment ?
 			if(plugin.settings.itemDisplayDelay > 0) {
-				$( item ).fadeIn( 'fast' ).delay( plugin.settings.itemDisplayDelay ).fadeOut( 'fast',function(){
-					removeDom( item );
+				$( notification ).fadeIn( 'fast' ).delay( plugin.settings.itemDisplayDelay ).fadeOut( 'fast',function(){
+					removeDom( notification );
 					debug( 'Item removed from dom' + "\n" + 
 					       'id : ' + plugin.settings.itemSelector + "\n" + 
 					       'type:' + title );
 				});				
 			}
 			else {
-				$( item ).fadeIn( 'fast' );
+				$( notification ).fadeIn( 'fast' );
 			}
 
 		}
@@ -300,7 +300,9 @@
 		 * Debug nécessite le support de console.info()
 		 */
     	var debug = function( text ) {
-    		( plugin.settings.debug == true ) ? console.info( text ) : null ;
+    		if( (window['console'] !== undefined) ){
+    			( plugin.settings.debug == true ) ? console.info( text ) : null ;
+    		}
     	}
 
 		// Construteur
