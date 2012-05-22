@@ -300,6 +300,7 @@
 		 * Debug nécessite le support de console.info()
 		 */
     	var debug = function( text ) {
+    		// Verifie que ce n'est pas internet explorer
     		if( (window['console'] !== undefined) ){
     			( plugin.settings.debug == true ) ? console.info( text ) : null ;
     		}
