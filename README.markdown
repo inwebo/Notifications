@@ -23,7 +23,7 @@ Pour inclure Jquery le plus simple est d'utiliser Google Librairies et de copier
 
 * Simple d'utilisation
 * Indépendant d'un balisage particulier
-* Compatible navigateurs modernes
+* Compatible navigateurs modernes Opera, Firefox, Chrome, IE8+
 
 Il sert à afficher dans le navigateur des messages pour l'utilisateur. Nous avons le même fonctionnement avec nos différents OS. Ainsi que sur un réseau social très connu.
 
