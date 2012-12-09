@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* [Master Stylesheet] */
+
+/*--------------------------------------
+[Table of contents]
+1. Wrapper
+2. List
+3. Notification
+
+--------------------------------------*/
+
+/*--------------------------------------
+1. Wrapper
+--------------------------------------*/
+#notifications {
+    border: 1px dashed red;
+    margin:1em;
+    padding:1em;
+}
+
+    #notifications:before {
+        content: "div#notifications";
+        position: relative;
+        top: -1.7em;
+        background-color: red;
+        color: white;
+        padding: 0.5em;
+    }
+    
+/*--------------------------------------
+2. List
+--------------------------------------*/
+#list {
+    border: 1px dashed green;
+        margin:1em;
+    padding:1em;
+}
+
+    #list:before {
+        content: "ul#list";
+        position: relative;
+        top: -1.7em;
+        background-color: green;
+        color: white;
+        padding: 0.5em;
+    }
+
+/*--------------------------------------
+3. Notification
+--------------------------------------*/
+#list .notification {
+    margin:2em;
+    padding:1em;
+}
+    #list .notification:before {
+        content: "li.notification";
+        position: relative;
+        top: -1.7em;
+        background-color: blue;
+        color: white;
+        padding: 0.5em;
+    }
