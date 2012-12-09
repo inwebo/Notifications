@@ -13,7 +13,6 @@ Plugin Jquery de notification visuel d'événements.
 * Eventuellement une feuille de style
 * Navigateur moderne
 
-> Si des erreurs surviennent il faut impérativement instancier l'objet avec le paramètre debug à false
 
 Pour inclure Jquery le plus simple est d'utiliser Google Librairies et de copier/coller ces lignes dans votre header
 
@@ -30,28 +29,31 @@ Il sert à afficher dans le navigateur des messages pour l'utilisateur. Nous avo
 ## Principe
 
 Le plugin recherche un *container* dans le DOM de la page courante. Si il n'est pas présent il est ajouté. Les messages seront contenus 
-dans une *liste non ordonnée* ajoutée automatiquement. Chaque *item* de cette liste sera une notification pour l'utilisateur, de durée d'affichage,
+dans une *liste non ordonnée* ajoutée automatiquement. Chaque *item* de cette liste sera une *notification* pour l'utilisateur, de durée d'affichage,
 d'apparence configurable. Les items peuvent être supprimés lors d'un clic sur ceux ci, automatiquement ou au clic sur un bouton de fermeture.
+
+Une notification est un objet, elle sera entreprosée dans l'objet myNotification qui est un wrapper.
 
 ### Container
 
 Le container est une simple div avec un id html unique. Il sera le dernier noeud de body
 
-    <div id="container"></div>
+    <div id="notifications"></div>
 
 ### Liste
 
 Est dans le container, toutes les notifications seront ajoutées dans ce noeud.
 
-    <ul></ul>
+    <ul id="list"></ul>
 
-#### Item
+#### Notification
 
-Est un item de liste avec un id unique et une classe CSS.
+Est un item de liste avec un *id* unique, un style *notification*, et une classe de 
+spécialisation ici *warning*
 
-    <li id="message-0" style="display: block;" class="my-notifications-error">
-        <h6>Error<a class="my-notifications-close" href="#" onclick="return false;">x</a></h6>
-        <p>Message d'erreur.</p>
+    <li id="notification-2" class="notification warning">
+        <h6>warning<a class="close" href="#" onclick="return false;">x</a></h6>
+        <p>Notification body's</p>
     </li>
 
 ### Constructeur
