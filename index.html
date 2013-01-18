@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Notifications by inwebo</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/inwebo/Notifications">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Notifications</h1>
+            <h2>Simple and easy to configure notification jquery plugin</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/inwebo/Notifications/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/inwebo/Notifications/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>MyNotifications</h1>
+
+<p>Plugin Jquery de notification visuel d'événements.</p>
+
+<h2>Démonstration</h2>
+
+<p><a href="http://www.inwebo.net/demo/plugin.mynotifications">Démonstration en ligne</a></p>
+
+<h2>Require</h2>
+
+<ul>
+<li>Jquery 1.6.4+</li>
+<li>Le plug in (plugin.mynotifications.js)</li>
+<li>Eventuellement une feuille de style</li>
+<li>Navigateur moderne</li>
+</ul><p>Pour inclure Jquery le plus simple est d'utiliser Google Librairies et de copier/coller ces lignes dans votre header</p>
+
+<pre><code>&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h2>Objectifs</h2>
+
+<ul>
+<li>Simple d'utilisation</li>
+<li>Indépendant d'un balisage particulier</li>
+<li>Compatible navigateurs modernes Opera, Firefox, Chrome, IE8+</li>
+</ul><p>Il sert à afficher dans le navigateur des messages pour l'utilisateur. Nous avons le même fonctionnement avec nos différents OS. Ainsi que sur un réseau social très connu.</p>
+
+<h2>Principe</h2>
+
+<p>Le plugin recherche un <em>container</em> dans le DOM de la page courante. Si il n'est pas présent il est ajouté. Les messages seront contenus 
+dans une <em>liste non ordonnée</em> ajoutée automatiquement. Chaque <em>item</em> de cette liste sera une <em>notification</em> pour l'utilisateur, de durée d'affichage,
+d'apparence configurable. Les items peuvent être supprimés lors d'un clic sur ceux ci, automatiquement ou au clic sur un bouton de fermeture.</p>
+
+<p>Une notification est un objet, elle sera entreprosée dans l'objet myNotification qui est un wrapper.</p>
+
+<h3>Container</h3>
+
+<p>Le container est une simple div avec un id html unique. Il sera le dernier noeud de body</p>
+
+<pre><code>&lt;div id="notifications"&gt;&lt;/div&gt;
+</code></pre>
+
+<h3>Liste</h3>
+
+<p>Est dans le container, toutes les notifications seront ajoutées dans ce noeud.</p>
+
+<pre><code>&lt;ul id="list"&gt;&lt;/ul&gt;
+</code></pre>
+
+<h4>Notification</h4>
+
+<p>Est un item de liste avec un <em>id</em> unique, un style <em>notification</em>, et une classe de 
+spécialisation ici <em>warning</em></p>
+
+<pre><code>&lt;li id="notification-2" class="notification warning"&gt;
+    &lt;h6&gt;warning&lt;a class="close" href="#" onclick="return false;"&gt;x&lt;/a&gt;&lt;/h6&gt;
+    &lt;p&gt;Notification body's&lt;/p&gt;
+&lt;/li&gt;
+</code></pre>
+
+<h3>Constructeur</h3>
+
+<p>L'objet MyNotifications peut s'instancier de deux manières.</p>
+
+<p>L'instanciation par défauts</p>
+
+<pre><code>// Constructeur par défauts
+var myplugin = new $.myNotifications();
+</code></pre>
+
+<p>Lors de l'instanciation de l'objet le <em>debug</em> est activé, le container principal se nomme <em>container</em>,
+le selecteur CSS est un <em>#</em>, son id CSS complet est donc <em>#container</em>, les notifications s'affichent pour une
+durée de <em>3000</em> ms. Le prefix des id CSS est <em>message</em>. les notifications se ferment lors d'un click elles et elles possédent également un bouton de fermeture.</p>
+
+<p>Les class CSS par défaut des notifications est :</p>
+
+<ul>
+<li>Pour les erreurs : <em>my-notifications-error</em>, la forme compléte est <em>.my-notifications-error</em>
+</li>
+<li>Pour les avertissements : <em>my-notifications-warning</em>, la forme compléte est <em>.my-notifications-warning</em>
+</li>
+<li>Pour les informations : <em>my-notifications-info</em>, la forme compléte est <em>.my-notifications-info</em>
+</li>
+<li>Pour les validations : <em>my-notifications-okay</em>, la forme compléte est <em>.my-notifications-okay</em>
+</li>
+<li>Du bouton de fermeture des notifications : <em>my-notifications-close</em>, la forme compléte est <em>.my-notifications-close</em>
+</li>
+</ul><p>L'instanciation avec paramètres</p>
+
+<pre><code>// Constructeur avec paramètres (tableau)
+var myplugin = new $.myNotifications({
+                                      'delay':-1,
+                                      'containerId': 'truc-a-dire'
+                                    });
+</code></pre>
+
+<p>Même chose que l'exemple précédént mais les notifications s'affichent perpetuellement, et le <em>container</em> principal se nomme désormais <em>truc-a-dire</em></p>
+
+<h2>Plugin</h2>
+
+<h3>Attributs</h3>
+
+<p></p><table border="1" width="" cellpadding="3" cellspacing="3">
+<tr>
+<td>Arguments</td>
+        <td>Values</td>
+        <td>Description</td>
+    </tr>
+<tr>
+<td rowspan="2"><code>debug</code></td>
+        <td><em>True</em></td>
+        <td>Affiche le déroulement du process dans la console de debug.</td>
+    </tr>
+<tr>
+<td>False</td>
+        <td>Silencieux</td>
+    </tr>
+<tr>
+<td><code>Container name</code></td>
+        <td>string</td>
+        <td>Nom du container principal</td>
+    </tr>
+<tr>
+<td><code>containerSelectorType</code></td>
+        <td>string</td>
+        <td>Un selecteur CSS, <code>#</code>, <code>.</code>
+</td>
+    </tr>
+<tr>
+<td><code>containerSelector</code></td>
+        <td>string</td>
+        <td>Selecteur CSS</td>
+    </tr>
+<tr>
+<td><code>listName</code></td>
+        <td>string</td>
+        <td>Selecteur type</td>
+    </tr>
+<tr>
+<td><code>listSelectorType</code></td>
+        <td>string</td>
+        <td>Un selecteur CSS, <code>#</code>, <code>.</code>
+</td>
+    </tr>
+<tr>
+<td><code>itemDisplayDelay</code></td>
+        <td>int</td>
+        <td>Durée d'affichage des notifications en ms.Un entier négatif donne un affichage perpetuel</td>
+    </tr>
+<tr>
+<td><code>itemDisplayDelay</code></td>
+        <td>int</td>
+        <td>Nombre ajouts de notifications total dans la liste</td>
+    </tr>
+<tr>
+<td><code>itemName</code></td>
+        <td>string</td>
+        <td>Préfixe des notifications</td>
+    </tr>
+<tr>
+<td><code>itemCount</code></td>
+        <td>int</td>
+        <td>Nombre de notifications présentes dans le DOM</td>
+    </tr>
+<tr>
+<td rowspan="2"><code>itemCloseByClick</code></td>
+        <td><em>True</em></td>
+        <td>Les notifications se ferment lors d'un click.</td>
+    </tr>
+<tr>
+<td>False</td>
+        <td>Les notifications ne se ferment pas lors d'un click.</td>
+    </tr>
+<tr>
+<td rowspan="2"><code>itemCloseByButton</code></td>
+        <td><em>True</em></td>
+        <td>Bouton de fermeture ajouté à chaques notifications.</td>
+    </tr>
+<tr>
+<td>False</td>
+        <td>Pas de bouton</td>
+    </tr>
+<tr>
+<td><code>itemClassError</code></td>
+        <td>string</td>
+        <td>Class CSS des notifications d erreurs</td>
+    </tr>
+<tr>
+<td><code>itemClassWarning</code></td>
+        <td>string</td>
+        <td>Class CSS des notifications avertissement</td>
+    </tr>
+<tr>
+<td><code>itemClassInfo</code></td>
+        <td>string</td>
+        <td>Class CSS des notifications d information</td>
+    </tr>
+<tr>
+<td><code>itemClassOkay</code></td>
+        <td>string</td>
+        <td>Class CSS des notifications validation</td>
+    </tr>
+<tr>
+<td><code>itemClassClose</code></td>
+        <td>string</td>
+        <td>Class CSS du bouton fermeture de notification</td>
+    </tr>
+</table><h3>Méthodes privées</h3>
+
+<ul>
+<li>
+<code>init()</code> : Construit les attributs manquants de l'objet, s'assure de la présence dans le DOM
+       du container</li>
+<li>
+<code>buildContainerSelector()</code> : Construit le selecteur CSS du container principal.
+                         eg : #container<br>
+</li>
+<li>
+<code>buildChildsAttributs()</code> : Mets à jour l'index des notifications. Elles conservent comme ceci un nom
+                       unique</li>
+<li>
+<code>containerIsSet()</code> : Le container est il présent</li>
+<li>
+<code>buildContainer()</code> : Si le container n'est pas présent, on l'ajoute au DOM</li>
+<li>
+<code>listenerClose()</code> : Ecouteur d'évenement sur les notifications</li>
+</ul><h3>Méthodes publics</h3>
+
+<p>Le plugin posséde une méthode principale :</p>
+
+<ul>
+<li>
+<code>msg('title', 'text')</code> : title est le type de notifications info | warning | error | okay
+                     Si title n'est pas un des 4 choix précédents, la notification sera de type
+                     custom, ayant pour titre de fenêtre title et comme texte <code>text</code>.</li>
+</ul><h4>Alias</h4>
+
+<p>Les méthodes suivantes sont simplement des alias de <em>msg()</em> le paramétre de <em>title</em> est déjà assigné.</p>
+
+<ul>
+<li><code>msgError('text')</code></li>
+<li><code>msgWarning('text')</code></li>
+<li><code>msgOkay('text')</code></li>
+<li><code>msgInfo('text')</code></li>
+</ul><h2>Dépôt Gihub</h2>
+
+<p>Fork me i'm famous</p>
+
+<pre><code>git clone git://github.com/inwebo/MyNotifications-Jquery-plugin.git
+</code></pre>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/inwebo">inwebo</a> can be found on <a href="https://github.com/inwebo/Notifications">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
