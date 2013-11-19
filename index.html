@@ -1,143 +1,125 @@
 <!doctype HTML>
 <head>
 	<meta charset="utf-8">
-	<link rel="shortcut icon" href="favicon.ico">
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<link rel="stylesheet" href="style/plugin.notifications.css">
 	<link rel="stylesheet" href="style/style.css">
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<link rel="stylesheet" href="style/plugin.mynotifications.css">
-        <link rel="stylesheet" href="style/gui-buttons.css">
-        <link id="wrapper-position" rel="stylesheet" href="style/bottomright.css">
-        <link id="demo-outline" rel="stylesheet" href="">
-	<!-- Indispensable pour le plugin -->
-	<meta name="keywords" content="jquery, plugin, notifications" />
-	<meta name="author" lang="fr" content="Inwebo" />
-	<meta name="copyright" content="Creative commons" />
-	<meta name="date" content="2012" />
+    <link id="demo-outline" rel="stylesheet" href="">
+	<link rel="stylesheet" href="style/gui-buttons.css">
+    <link id="wrapper-position" rel="stylesheet" href="style/bottomright.css">
 	<title>Jquery - Plugin - MyNotifications</title>
 	<meta name="description" content="Simple Notification Plugin.">
-	<script type="text/javascript" src="plugin.mini.mynotifications.js"></script>
+	<script type="text/javascript" src="plugin.notifications.js"></script>
+
 </head>
 <body>
 <header>
     <a name="top"></a>
-    <h1>Plugin Jquery de notification d'événements.<span id="version">version : <span>01-12-2012</span></span></h1>
+    <h1>Plugin jquery : notification<span id="version">version : <span>18-11-2013</span></span></h1>
 </header>
 <div role="main">
-	<script type="text/javascript" src="plugin.mynotifications.js"></script>
-	<h2>Readme</h2>
+    <hr>
+    <h2>Download</h2>
+    <p>
+        Latest build : <a href="https://github.com/inwebo/Notifications/archive/master.zip" class="button" title="Always last stable release">Download jquery plugin Notifications</a>
+    </p>
+    <hr>
+    <h2>Copy & Paste</h2>
+    <code>
+        // Jquery
+        &lt;script type=&quot;text/javascript&quot; src=&quot;//code.jquery.com/jquery-1.10.2.min.js&quot;&gt;&lt;/script&gt;<br>
+        // Need a valid path to the plugin<br>
+        &lt;script type=&quot;text/javascript&quot; src=&quot;plugin.notifications.js&quot;&gt;&lt;/script&gt;<br>
+        <br>
+        // Instanciate new plugin<br>
+        notifications = new $.Notifications('notifications');<br>
+        // Throw new notifications<br>
+        notifications.valid('Good job','This is a valid notification');<br>
+    </code>
+    <hr>
+    <h2>Demo how to throw notification</h2>
+    <p class="panel">
+        <a href="#" id="demo-outline-button" class="button left color-error">Visual helper ?</a><a href="#" id="buttonError" class="button middle color-error">Error</a><a href="#" id="buttonInfo" class="button middle color-info">Info</a><a href="#" id="buttonWarning"  class="button middle color-warning">Warning</a><a href="#" id="buttonSuccess"  class="button middle color-success">Valid</a><a href="#" id="buttonCustom"  class="button middle right color-custom">Custom</a><br>
 
-	<hr>
-	<h2>Télécharger</h2>
-	<p>
-		La dernière version est toujours disponible sur ce lien.
-	</p>
-	<p style="text-align: center;">
-		<a href="https://github.com/inwebo/MyNotifications-Jquery-plugin/zipball/MyNotifications" class="button" title="Always last stable release">MyNotifications</a>
-	</p>
-	<br>
-	<hr>
-        <div><h2>Démonstration </h2></div>
-	<p>
-		Cliquez sur un des boutons pour afficher la notifications associée.<br>
-		Ceci est le comportement par défaut des notifications. Elle apparaissent pour <em>3 s</em>,
-		elles ont un <em>bouton de fermeture</em> et disparaissent automatiquement. Elles sont stylés avec 
-		une <a href="plugin.mynotifications.css">feuille de style</a>.
-	</p>
-        <br>
-	<p style="text-align:center;">
-		<a href="#" id="buttonError" class="button left color-error">Error</a><a href="#" id="buttonInfo" class="button middle color-info">Info</a><a href="#" id="buttonWarning"  class="button middle color-warning">Warning</a><a href="#" id="buttonSuccess"  class="button middle color-success">Okay</a><a href="#" id="buttonCustom"  class="button middle right color-custom">Message</a>
-	</p>
-        <br>
-	<hr>
-        <div><h2>Configuration</h2></div>
-        <p>
-            Avec un séparation efficace de la couche métier et de la couche présentation. Il est très
-            facile de modifier l'apparence des notifications.
-        </p>
-        <h3>Positionnement</h3>
-        <p>
-            Le positionnement du wrapper s'effectue entièrement en CSS. Pour avoir le détail du DOM vous pouvez afficher <a id="demo-outline-button" href="#">une
-                aide visuelle</a>.
-        </p>
-        <ul id="demoPosition">
-            <li><a id="topleft" href="#">Top left</a></li>
-            <li><a id="topright" href="#">Top right</a></li>
-            <li><a id="bottomleft" href="#">Bottom left</a></li>
-            <li><a id="bottomright" href="#">Bottom right</a></li>
-        </ul>
+    </p>
+    <p class="panel">
+        <a id="topleft" href="#" class="button left color-error">Top left</a><a id="topright" href="#" class="button middle color-error">Top right</a><a id="bottomleft" href="#" class="button middle color-error">Bottom left</a><a id="bottomright" href="#" class="button right color-error">Bottom right</a>
+    </p>
+
+
 </div>
-<script>
-	$(document).ready(function() {
 
-        $("#demoPosition li a").click(function(e){
-            e.preventDefault();
-            var css = $(this).attr('id') + ".css";
-            var wrapperPosition = $("#wrapper-position").attr('href', css);
-            
-        });
+
+<script>
+    $(document).ready(function() {
+        var demo = "Lorem ipsum dolor sit <a href='#'>amet</a>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+        notifications = new $.Notifications('notifications',{style:{container:'arf', list:'yeah'}});
+        //notifications.error('Error',demo,{forceDomDelete:false, closeSelf:false, closeButton:false, life:3000});
+        //notifications.warning('Warning',demo,{ closeSelf:false });
+        //notifications.valid('Valid',demo);
+        notifications.info('Information',demo);
+
+        $('#buttonError').click(
+                function(event) {
+                    event.preventDefault();
+                    notifications.error('error','Houston we\'ve got problem.');
+                }
+        );
+        $('#buttonInfo').click(
+                function(event) {
+                    event.preventDefault();
+                    notifications.info('info','Ceci n\'est pas une information',{style:'arf'});
+                }
+        );
+        $('#buttonWarning').click(
+                function(event) {
+                    event.preventDefault();
+                    notifications.warning('warning','Attention');
+                }
+        );
+        $('#buttonSuccess').click(
+                function(event) {
+                    event.preventDefault();
+                    notifications.valid('Je pourrais être le callback d\'une requete ajax.');
+                }
+        );
+        $('#buttonCustom').click(
+                function(event) {
+                    event.preventDefault();
+                    notifications.custom('Je suis un titre','Je suis le corps du message.');
+                }
+        );
 
         $("#demo-outline-button").click(function(e){
             e.preventDefault();
             var css = "style/demo.outline.css";
-            
+
             if($("#demo-outline").attr('href')== "") {
                 $("#demo-outline").attr('href', css);
             }
             else {
                 $("#demo-outline").attr('href', "");
-            }            
+            }
         });
 
-	    var notifications = new $.myNotifications();
-            notifications.Notification('Bienvenue', 'Je suis un message d\'accueil! Je suis entièrement clickable et je reste affichée indefiniment.');
-            notifications.Notification('success', 'Une notification peut contenir du HTML!<br/><br/><iframe width="100%" height="95%" src="http://www.youtube.com/embed/2OXAFqcQAfo" frameborder="0" allowfullscreen></iframe>');
-            notifications.Notification('Mais aussi', 'Chaque notifications peut être configurée indépendament, celle ci ne se ferme pas lors du click, elle ne dispose pas de bouton close et a une durée de vie de 10s\n\
-        <br><code>{closeSelf:false, closeButton:false, life:10000}</code>', {closeSelf:false, closeButton:false, life:10000});
-		$('#buttonError').click(
-			function(event) {
-                            event.preventDefault();
-                            notifications.E('Houston we\'ve got problem.');
-			}
-		);
-		$('#buttonInfo').click(
-			function(event) {
-                            event.preventDefault();
-                            notifications.I('Ceci n\'est pas une information');
-			}
-		);
-		$('#buttonWarning').click(
-			function(event) {
-                            event.preventDefault();
-                            notifications.W('Attention');
-			}
-		);
-		$('#buttonSuccess').click(
-			function(event) {
-                            event.preventDefault();
-                            notifications.S('Je pourrais être le callback d\'une requete ajax.');
-			}
-		);
-		$('#buttonCustom').click(
-			function(event) {
-                            event.preventDefault();
-                            notifications.Notification('Je suis un titre','Je suis le corps du message.');
-			}
-		);               
+        $("#topleft,#topright,#bottomleft,#bottomright").click(function(e){
+            e.preventDefault();
+            var css = 'style/'+$(this).attr('id') + ".css";
+            var wrapperPosition = $("#wrapper-position").attr('href', css);
 
-	});
+        });
+
+    });
 </script>
-
-<br><br>
 <footer>
     <p>
-        <a target="_blank" href="http://julien.hannotin.is.free.fr" title="Julien Hannotin">Jool</a> | <a target="_blank" title="Creative Commons 2" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr/">creative commons 2</a> | <a href="https://github.com/inwebo/MyNotifications-Jquery-plugin" target="_blank" title="Git repository">Github Repository</a> | <a href="#top">top</a>
+        <a target="_blank" href="http://julien.hannotin.is.free.fr" title="Julien Hannotin">Jool</a> | <a target="_blank" title="Creative Commons 2" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr/">creative commons 2</a> | <a href="https://github.com/inwebo/Notifications" target="_blank" title="Git repository">Github Repository</a> | <a href="#top">top</a>
     </p>
 </footer>
 <script type="text/javascript">
-<!--//--><![CDATA[//><!--
-var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-23326627-1"]);_gaq.push(["_setDomainName", ".inwebo.net"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
-//--><!]]>
+    <!--//--><![CDATA[//><!--
+    var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-23326627-1"]);_gaq.push(["_setDomainName", ".inwebo.net"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+    //--><!]]>
 </script>
-
 </body>
 </html>
