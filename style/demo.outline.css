@@ -12,6 +12,8 @@
 /*--------------------------------------
 1. Wrapper
 --------------------------------------*/
+
+
 #notifications {
     border: 1px dashed red;
     margin:1em;
@@ -30,13 +32,13 @@
 /*--------------------------------------
 2. List
 --------------------------------------*/
-#list {
+#notifications ul{
     border: 1px dashed green;
-        margin:1em;
+    margin:1em;
     padding:1em;
 }
 
-    #list:before {
+    #notifications ul:before {
         content: "ul#list";
         position: relative;
         top: -1.7em;
@@ -48,11 +50,11 @@
 /*--------------------------------------
 3. Notification
 --------------------------------------*/
-#list .notification {
+#notifications li {
     margin:2em;
     padding:1em;
 }
-    #list .notification:before {
+        #notifications li:before {
         content: "li.notification";
         position: relative;
         top: -1.7em;

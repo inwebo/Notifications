@@ -1,9 +1,15 @@
 @charset "utf-8";
 /* CSS Document */
 /* Useless for plugin */
+html {
+    padding: 0;
+}
 body {
-    font:0.9em arial,helvetica,clean,sans-serif;
+    font:1em arial,helvetica,clean,sans-serif;
     background-color:#F7F7F7;
+    position: relative;
+    padding: 0;
+
 }
 
 header, header+div, footer {
@@ -12,17 +18,18 @@ header, header+div, footer {
 }
 
 footer {
+    background: none repeat scroll 0 0 graytext;
+    bottom: 0;
+    display: block;
+    padding: 1em;
+    position: relative;
     text-align: center;
+    width: 100%;
 }
 
-h1 {
-    margin-bottom: 3em;
-}
-
-h1 , h2, h3 {
+h1, h2, h3 {
     color:#68C2FF;
-    margin-bottom:20px;
-    margin:10px 0;
+    margin-bottom:1em;
     text-shadow: 1px 1px 0px #FFFFFF;
     filter: dropshadow(color=#FFFFFF, offx=1, offy=1);
 }
@@ -130,4 +137,16 @@ ol {
 
 #version span {
     color:darkseagreen;
+}
+
+#demoPosition {
+    display: inline;
+}
+
+.panel {
+    text-align: center;
+}
+
+#demoPosition li{
+    display: inline-block;
 }
