@@ -63,7 +63,11 @@
             /**
              * If true only hide notification, else remove from DOM
              */
-            forceDomDelete:false
+            forceDomDelete:false,
+            style: {
+                container:null,
+                list:null
+            }
         };
 
         var plugin = this;
@@ -80,7 +84,30 @@
                 list:$('<ul></ul>')
             };
 
-            (!isDomReady()) ? addToDom() : null;
+            // Pas de container
+            if( !($(document.body).has('#'+id).length > 0) ) {
+                $('body').append( plugin.cache.container );
+            }
+            // update cache
+            else {
+                plugin.cache.container = $('#'+id);
+            }
+
+            // Pas de liste
+            if( !($('#'+id).has('ul').length > 0 ) ) {
+                $(plugin.cache.container).append( plugin.cache.list );
+            }
+            // update cache
+            else {
+                plugin.cache.list = $('#'+id).find('ul');
+            }
+
+            if( plugin.settings.style.container !== null ) {
+                plugin.cache.container.addClass( plugin.settings.style.container );
+            }
+            if( plugin.settings.style.list !== null ) {
+                plugin.cache.list.addClass( plugin.settings.style.list );
+            }
 
         };
 
@@ -91,21 +118,6 @@
         plugin.length = function() {
             return plugin.cache.list.find('li').length;
         }
-
-        /**
-         * Main container is already in DOM
-         * @returns {boolean}
-         */
-        var isDomReady = function() {
-            return !( $('#'+plugin.id).length === 0 );
-        };
-
-        /**
-         * Append container to body, will be the last body child
-         */
-        var addToDom = function() {
-            $('body').append( plugin.cache.container.append( plugin.cache.list ) );
-        };
 
         var debug = function( text ) {
             // Verifie que ce n'est pas internet explorer
@@ -215,7 +227,8 @@
                 /*
                     Notification data-type attribut
                  */
-                type:'custom'
+                type:'custom',
+                style:null
             };
 
             var plugin = this;
@@ -232,7 +245,9 @@
                     content   : $("<p></p>").html( plugin.content ),
                     button    : $("<a></a>").attr('href', '#').attr('onClick', 'return false;').html(plugin.settings.closeButtonContent)
                 };
-
+                if( plugin.settings.style !== null ) {
+                    plugin.cache.container.addClass(plugin.settings.style);
+                }
                 addListener();
                 return plugin;
             };
@@ -281,7 +296,6 @@
              */
             plugin.remove = function() {
                 $(plugin.cache.container).unbind();
-                //( plugin.settings.forceDomDelete ) ? $(plugin.cache.container).remove() : null ;
                 $(plugin.cache.container).remove()
             }
 
