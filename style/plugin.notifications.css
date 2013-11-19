@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* [Master Stylesheet] */
+
+/*--------------------------------------
+[Table of contents]
+1. Wrapper
+2. List
+3. notification
+4. notification header
+5. Notification close button
+
+--------------------------------------*/
+
+/*--------------------------------------
+1. Wrapper
+--------------------------------------*/
+#notifications {
+    bottom: 1em;
+    position: fixed;
+    right: 1em;
+    width: 25%;
+}
+
+/*--------------------------------------
+2. List
+--------------------------------------*/
+#notifications ul {
+    padding:0;
+}
+
+/*--------------------------------------
+3. Notification
+--------------------------------------*/
+
+#notifications li {
+    border: 1px solid lightgrey;
+    list-style: none outside none;
+    padding: 1em;
+    margin-bottom:1em;
+    background-color:white;
+    box-shadow: 0 0 0 1px #FFFFFF inset;
+}
+
+    /*--------------------------------------
+    4. Notification header
+    --------------------------------------*/
+    #notifications li h6 {
+        margin-top:0;
+        font-size: medium;
+        border-bottom:solid 1px;
+        padding-bottom: 1em;
+        margin-bottom:0;
+    }
+    
+        /*--------------------------------------
+        5. Notification close button
+        --------------------------------------*/
+        #notifications li h6 a {
+            float:right;
+            text-decoration:none;
+        }
+    
+    /*--------------------------------------
+    6. Notification body
+    --------------------------------------*/
+        #notifications li p {
+        font-size: small;
+    }
+
+    /*--------------------------------------
+    7. Notification error
+    --------------------------------------*/
+    #notifications li[data-type="error"] {
+        background-color:#FFECCE;
+        border: 1px solid #E9C59B
+    }
+
+    #notifications li[data-type="error"] a {
+        color: #E3302C;
+    }
+
+    /*--------------------------------------
+    8. Notification success
+    --------------------------------------*/
+    #notifications li[data-type="valid"] {
+        border: 1px solid #BFDE84;
+        background-color:#EDFBD8;
+    }
+
+    #notifications li[data-type="valid"] a{
+        color: #508600;
+    }
+
+    /*--------------------------------------
+    8. Notification info
+    --------------------------------------*/
+    #notifications li[data-type="info"] {
+        border-color:#BBDBE0;
+        background-color:#ECF9FF;
+    }
+
+    #notifications li[data-type="info"] a{
+        color: #0888C3;
+    }
+
+    /*--------------------------------------
+    9. Notification warning
+    --------------------------------------*/
+    #notifications li[data-type="warning"] {
+        border: 1px solid #E5E181;
+        background-color:#FEFDE2;
+    }
+
+    #notifications li[data-type="warning"] a{
+        color: #666666;
+    }
