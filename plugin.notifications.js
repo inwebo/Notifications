@@ -35,7 +35,7 @@
  * @author    Julien Hannotin
  * @license   http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
  * @version   0112-2012
- * @link      git://github.com/inwebo/MyNotifications-Jquery-plugin.git
+ * @link      https://github.com/inwebo/Notifications
  */
 ;(function ($){
 
